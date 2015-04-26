@@ -45,10 +45,6 @@ var getroutes = {
 
         if (!aIsLetterFirst && !bIsLetterFirst) /* numbers first */
         {
-            if (a == '61A' && b == '70')
-            {
-                // debugger;
-            }
             if (aNumber == bNumber)
             {
                 retValue = aLetter < bLetter ? -1 : 1;
