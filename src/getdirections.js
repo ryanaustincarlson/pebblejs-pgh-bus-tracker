@@ -30,17 +30,10 @@ var getdirections = {
         console.log('success!');
         var directions = data['bustime-response'].directions;
         var menuItems = getdirections.parseDirections(directions);
-
-        var resultsMenu = new UI.Menu({
-          sections: [{
-            title: 'Directions',
-            items: menuItems
-          }]
-        });
         
         var info = {route: route};
 
-        onSuccess(resultsMenu, info);
+        onSuccess(menuItems, info);
       }
     );
   }

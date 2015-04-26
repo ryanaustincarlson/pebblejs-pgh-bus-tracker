@@ -43,13 +43,6 @@ var getstops = {
         var parseStopsObj = getstops.parseStops(stops);
         var menuItems = parseStopsObj.items;
         var stopmapping = parseStopsObj.stopmapping;
-
-        var resultsMenu = new UI.Menu({
-          sections: [{
-            title: 'Stops',
-            items: menuItems
-          }]
-        });
         
         var info = {
           route: route,
@@ -57,7 +50,7 @@ var getstops = {
           stopmapping: stopmapping
         };
 
-        onSuccess(resultsMenu, info);
+        onSuccess(menuItems, info);
       }
     );
   }

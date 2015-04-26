@@ -113,14 +113,7 @@ var getroutes = {
         var routes = data['bustime-response'].routes;
         var menuItems = getroutes.parseRoutes(routes);
 
-        var resultsMenu = new UI.Menu({
-          sections: [{
-            title: 'Routes',
-            items: menuItems
-          }]
-        });
-
-        onSuccess(resultsMenu);
+        onSuccess(menuItems);
       }
     );
   }

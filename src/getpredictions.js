@@ -49,18 +49,11 @@ var getpredictions = {
       {
         console.log('success!');
         var predictions = data['bustime-response'].prd;
-        var resultsMenu = null;
+        var menuItems = null;
         
         if (!!predictions)
         {
-          var menuItems = getpredictions.parsePredictions(predictions);
-
-          resultsMenu = new UI.Menu({
-            sections: [{
-              title: 'Predictions',
-              items: menuItems
-            }]
-          });
+          menuItems = getpredictions.parsePredictions(predictions);
         }
         
         var info = {
@@ -69,7 +62,7 @@ var getpredictions = {
           stopid: stopid
         };
 
-        onSuccess(resultsMenu, info);
+        onSuccess(menuItems, info);
       }
     );
   }

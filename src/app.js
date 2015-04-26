@@ -13,6 +13,11 @@ var getstops = require('getstops');
 var getpredictions = require('getpredictions');
 // var URLUtils = require('URLUtils');
 
+var value = localStorage.getItem('hi');
+console.log('local value: ' + value);
+
+localStorage.setItem('hi', null);
+
 // Show splash screen while waiting for data
 var splashWindow = new UI.Window();
 
@@ -32,10 +37,16 @@ var text = new UI.Text({
 splashWindow.add(text);
 splashWindow.show();
 
-var predictionsSuccessFcn = function(predictionsMenu, info)
+var predictionsSuccessFcn = function(menuItems, info)
 {
-  if (!!predictionsMenu)
+  if (!!menuItems)
   {
+    var predictionsMenu = new UI.Menu({
+      sections: [{
+        title: 'Predictions',
+        items: menuItems
+      }]
+    });
     predictionsMenu.show();
   }
   else
@@ -49,8 +60,14 @@ var predictionsSuccessFcn = function(predictionsMenu, info)
   }
 };
 
-var stopsSuccessFcn = function(stopsMenu, info)
+var stopsSuccessFcn = function(menuItems, info)
 {
+  var stopsMenu = new UI.Menu({
+    sections: [{
+      title: 'Stops',
+      items: menuItems
+    }]
+  });
   stopsMenu.show();
   
   var route = info.route;
@@ -65,8 +82,14 @@ var stopsSuccessFcn = function(stopsMenu, info)
   });
 };
 
-var directionsSuccessFcn = function(directionsMenu, info)
+var directionsSuccessFcn = function(menuItems, info)
 {
+  var directionsMenu = new UI.Menu({
+    sections: [{
+      title: 'Directions',
+      items: menuItems
+    }]
+  });
   directionsMenu.show();
   
   var route = info.route;
@@ -78,8 +101,15 @@ var directionsSuccessFcn = function(directionsMenu, info)
   });
 };
 
-var routesSuccessFcn = function(routesMenu)
+var routesSuccessFcn = function(menuItems)
 {
+  var routesMenu = new UI.Menu({
+    sections: [{
+      title: 'Routes',
+      items: menuItems
+    }]
+  });
+  
   routesMenu.show();
   splashWindow.hide();
   
