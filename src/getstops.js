@@ -15,7 +15,7 @@ var getstops = {
       
       stopmapping[stopname] = stopid;
 
-      console.log('stopname: ' + stopname);
+      // console.log('stopname: ' + stopname);
 
       items.push({
         title:stopname,

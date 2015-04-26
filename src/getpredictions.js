@@ -5,21 +5,24 @@ var ajax = require('ajax');
 var getpredictions = {
   parsePredictions : function(predictions)
   {
-    console.log('IN parsePredictions');
     var items = [];
     for (var i=0; i<predictions.length; i++)
     {
       var prediction = predictions[i];
-      var minutes = prediction.prdctdn;
+      var timeEstimate = prediction.prdctdn;
       var route = prediction.rt;
       var destination = prediction.des;
       
-      console.log('prediction: ' + minutes);
+      // console.log('prediction: ' + minutes);
       
-      var title = route + ' to ' + destination;
-      var subtitle = minutes;
+      var title = '#' + route + ' to ' + destination;
+      var subtitle = timeEstimate;
+      if (!isNaN(timeEstimate))
+      {
+        subtitle += ' min';
+      }
 
-      console.log(title + ' ... ' + subtitle);
+      // console.log(title + ' ... ' + subtitle);
 
       items.push({
         title:title,
@@ -50,7 +53,6 @@ var getpredictions = {
         
         if (!!predictions)
         {
-          console.log('parsingPredictions...');
           var menuItems = getpredictions.parsePredictions(predictions);
 
           resultsMenu = new UI.Menu({

@@ -10,7 +10,7 @@ var getdirections = {
     {
       var direction = directions[i].dir;
 
-      console.log('dir: ' + direction);
+      // console.log('dir: ' + direction);
 
       items.push({
         title:direction,
