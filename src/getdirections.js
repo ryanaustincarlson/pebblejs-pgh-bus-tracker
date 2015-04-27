@@ -1,5 +1,4 @@
 var URLUtils = require('URLUtils');
-var UI = require('ui');
 var ajax = require('ajax');
 
 var getdirections = {

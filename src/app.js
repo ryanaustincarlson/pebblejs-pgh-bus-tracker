@@ -5,123 +5,36 @@
  */
 
 var UI = require('ui');
-// var ajax = require('ajax');
-var Vector2 = require('vector2');
-var getroutes = require('getroutes');
-var getdirections = require('getdirections');
-var getstops = require('getstops');
-var getpredictions = require('getpredictions');
-// var URLUtils = require('URLUtils');
+var browseRoutes = require('browseRoutes');
+var browseFavorites = require('browseFavorites');
 
-var value = localStorage.getItem('hi');
-console.log('local value: ' + value);
+var TITLE_FAVORITES = 'Favorites';
+var TITLE_ROUTES = 'Routes';
 
-localStorage.setItem('hi', null);
-
-// Show splash screen while waiting for data
-var splashWindow = new UI.Window();
-
-// Text element to inform user
-var text = new UI.Text({
-  position: new Vector2(0, 0),
-  size: new Vector2(144, 168),
-  text:'Downloading routes...',
-  font:'GOTHIC_28_BOLD',
-  color:'black',
-  textOverflow:'wrap',
-  textAlign:'center',
-  backgroundColor:'white'
+var mainMenu = new UI.Menu({
+  sections: [
+    {
+      title: null,
+      items: [
+              {title : TITLE_FAVORITES},
+              {title : TITLE_ROUTES}
+             ]
+    }]
 });
 
-// Add to splashWindow and show
-splashWindow.add(text);
-splashWindow.show();
-
-var predictionsSuccessFcn = function(menuItems, info)
-{
-  if (!!menuItems)
+mainMenu.on('select', function(e) {
+  var title = e.item.title;
+  if (title == TITLE_FAVORITES)
   {
-    var predictionsMenu = new UI.Menu({
-      sections: [{
-        title: 'Predictions',
-        items: menuItems
-      }]
-    });
-    predictionsMenu.show();
+    browseFavorites.start();
   }
-  else
+  else if (title == TITLE_ROUTES)
   {
-    var errorCard = new UI.Card({
-      title: 'No Routes Found',
-      subtitle: 'Sorry - try another route/stop!',
-    });
-
-    errorCard.show();
+    browseRoutes.start();
   }
-};
+});
 
-var stopsSuccessFcn = function(menuItems, info)
-{
-  var stopsMenu = new UI.Menu({
-    sections: [{
-      title: 'Stops',
-      items: menuItems
-    }]
-  });
-  stopsMenu.show();
-  
-  var route = info.route;
-  var direction = info.direction;
-  var stopmapping = info.stopmapping;
-  
-  stopsMenu.on('select', function(e) {
-    console.log('The item is titled "' + e.item.title + '"');
-    var stop = e.item.title;
-    var stopid = stopmapping[stop];
-    getpredictions.get(route, direction, stopid, predictionsSuccessFcn);
-  });
-};
-
-var directionsSuccessFcn = function(menuItems, info)
-{
-  var directionsMenu = new UI.Menu({
-    sections: [{
-      title: 'Directions',
-      items: menuItems
-    }]
-  });
-  directionsMenu.show();
-  
-  var route = info.route;
-  
-  directionsMenu.on('select', function(e){
-    console.log('The item is titled "' + e.item.title + '"');
-    var direction = e.item.title;
-    getstops.get(route, direction, stopsSuccessFcn);
-  });
-};
-
-var routesSuccessFcn = function(menuItems)
-{
-  var routesMenu = new UI.Menu({
-    sections: [{
-      title: 'Routes',
-      items: menuItems
-    }]
-  });
-  
-  routesMenu.show();
-  splashWindow.hide();
-  
-  routesMenu.on('select', function(e){
-    console.log('The item is titled "' + e.item.title + '"');
-    var route = e.item.title;
-    getdirections.get(route, directionsSuccessFcn);
-  });
-};
-
-// Make initial request
-getroutes.get(routesSuccessFcn);
+mainMenu.show();
 
 
 /*

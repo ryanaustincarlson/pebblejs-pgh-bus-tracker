@@ -10,10 +10,10 @@ var managefavorites = {
     }
     else
     {
-       return null; 
+      return null;
     }
   },
-  add : function(route, direction, stop)
+  add : function(route, direction, stopname)
   {
     // add stuff
   }

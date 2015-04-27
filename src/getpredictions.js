@@ -1,5 +1,4 @@
 var URLUtils = require('URLUtils');
-var UI = require('ui');
 var ajax = require('ajax');
 
 var getpredictions = {
@@ -31,7 +30,7 @@ var getpredictions = {
     }
     return items;
   },
-  get : function(route, direction, stopid, onSuccess)
+  get : function(route, direction, stopid, stopname, onSuccess)
   {
     
     var params = {
@@ -59,7 +58,8 @@ var getpredictions = {
         var info = {
           route: route,
           direction: direction,
-          stopid: stopid
+          stopid: stopid,
+          stopname: stopname
         };
 
         onSuccess(menuItems, info);
